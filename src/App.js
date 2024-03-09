@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Header } from "./Header";
+import { AddItems } from "./AddItems";
+import { List } from "./List";
+import { Footer } from "./Footer";
 
-function App() {
+var initialItems = [
+];
+
+export default function App() {
+  const [items, setItems] = useState(initialItems);
+
+  function add(item) {
+    console.log(initialItems.filter((item) => (item.packed ? item : {})));
+    setItems((items) => [...items, item]);
+  }
+
+  function del(id) {
+    setItems((items) => items.filter((item) => item.id !== id));
+  }
+
+  function togglePack(id) {
+    setItems((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  }
+  function clearItems() {
+    const answer = window.confirm("Do you really want to clear the list?");
+    if (answer) setItems([]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header />
+      <AddItems onAddItem={add} />
+      <List
+        items={items}
+        onDeleteItem={del}
+        onUpdateItem={togglePack}
+        onClear={clearItems}
+      />
+      <Footer items={items} />
     </div>
   );
 }
-
-export default App;
