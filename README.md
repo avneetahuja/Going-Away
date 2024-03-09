@@ -12,9 +12,7 @@ Welcome to the Going Away App repository! This React application is designed to 
 
 ## Technologies Used 💻
 
-- React: JavaScript library for building user interfaces.
-- React Router: For navigation within the app.
-- Local Storage: To persist checklist data even when the browser is closed.
+- React
 
 ## Getting Started 🏁
 
